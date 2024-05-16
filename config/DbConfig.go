@@ -4,14 +4,28 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
 )
 
 func Connection() {
-	dsn := "root:12345@tcp(35.202.163.192:3306)/library-system?charset=utf8"
+	envErr := godotenv.Load(".env")
+	if envErr != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	dbHost := os.Getenv("db_host")
+	dbPort := os.Getenv("db_port")
+	dbName := os.Getenv("db_name")
+	dbUser := os.Getenv("db_user")
+	dbPassword := os.Getenv("db_password")
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", dbUser, dbPassword, dbHost, dbPort, dbName)
 
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		fmt.Println("CONNECTION ERROR", err)
+		fmt.Println("Connection Error", err)
 		return
 	}
 
@@ -19,9 +33,9 @@ func Connection() {
 
 	err = db.Ping()
 	if err != nil {
-		fmt.Println("PING ERROR", err)
+		fmt.Println("Ping Error", err)
 		return
 	}
 
-	fmt.Println("CONNECTION OK")
+	fmt.Println("Connection status OK")
 }
