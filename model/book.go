@@ -6,4 +6,5 @@ type Book struct {
 	AuthorId  string `json:"author_id"`
 	Publisher string `json:"publisher"`
 	Genre     string `json:"genre"`
+	Quantity  int    `json:"quantity"`
 }

@@ -9,7 +9,9 @@ import (
 	"os"
 )
 
-func Connection() {
+var DB *sql.DB
+
+func Connection() error {
 	envErr := godotenv.Load(".env")
 	if envErr != nil {
 		log.Fatal("Error loading .env file")
@@ -25,17 +27,14 @@ func Connection() {
 
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		fmt.Println("Connection Error", err)
-		return
+		return fmt.Errorf("connection error: %v", err)
 	}
-
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
-		fmt.Println("Ping Error", err)
-		return
+		return fmt.Errorf("ping error: %v", err)
 	}
 
-	fmt.Println("Connection status OK")
+	DB = db
+	return nil
 }
