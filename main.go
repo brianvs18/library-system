@@ -16,6 +16,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/authors", controller.GetAllAuthors).Methods("GET")
+	router.HandleFunc("/authors", controller.SaveAuthor).Methods("POST")
 	http.Handle("/", router)
 	http.ListenAndServe(":8080", nil)
 
