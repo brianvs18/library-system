@@ -6,7 +6,7 @@ import (
 )
 
 func GenerateId() string {
-	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	const charset = "abcdefghijklmnopqrstuvwxyz0123456789"
 	bytes := make([]byte, 10)
 	if _, err := rand.Read(bytes); err != nil {
 		log.Fatal(err)
