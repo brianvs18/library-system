@@ -5,12 +5,6 @@ runtime_config:
   operating_system: 'ubuntu22'
   runtime_version: '1.18'
 
-env_variables:
-  DB_USER: "root"
-  DB_PASS: "12345"
-  DB_NAME: "library-system"
-  INSTANCE_CONNECTION_NAME: "deep-ethos-423500-j0:us-central1:library-system"
-
 handlers:
   - url: /.*
     script: auto
